@@ -91,7 +91,15 @@ async function startBot() {
 
             idleTimers.set(message_id, setTimeout(async () => {
                 ctx.telegram.deleteMessage(chatId, message_id);
-                ctx.telegram.deleteMessage(chatId, ctx.update.message.message_id);
+                try {
+                    ctx.telegram.deleteMessage(chatId, ctx.update.message.message_id);
+                } catch (error) {
+                    if (error.description === 'Bad Request: message to delete not found') {
+                        console.error("message is already deleted");
+                    } else {
+                        console.error("An error occurred: ", error);
+                    }
+                }
             }, 30000));
 
         }
