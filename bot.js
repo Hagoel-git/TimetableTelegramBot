@@ -103,6 +103,8 @@ async function startBot() {
 
     let idleTimers = new Map();
     bot.action(/.+/, async (ctx) => {
+        if (ctx.update.callback_query.message.chat.id != chatId) return;
+
         let message_id = ctx.update.callback_query.message.message_id;
         let subjects = [];
 
