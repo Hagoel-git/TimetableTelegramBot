@@ -90,8 +90,8 @@ async function startBot() {
             let message_id = (await ctx.replyWithMarkdownV2('Вибери предмет:', keyboard)).message_id;
 
             idleTimers.set(message_id, setTimeout(async () => {
-                ctx.telegram.deleteMessage(chatId, message_id);
                 try {
+                    ctx.telegram.deleteMessage(chatId, message_id);
                     ctx.telegram.deleteMessage(chatId, ctx.update.message.message_id);
                 } catch (error) {
                     if (error.description === 'Bad Request: message to delete not found') {
