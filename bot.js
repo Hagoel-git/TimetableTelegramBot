@@ -82,7 +82,11 @@ async function startBot() {
         if (msg.toLowerCase() === '/hw@timetableip21bot' || msg === '/homework' || msg === '/hw' || msg === 'дз' || msg === 'зд' || msg === 'hw') {
             let buttons = [];
             for (let i = 0; i < countOfSubjects; i++) {
-                buttons[i] = Markup.button.callback(mainSheet.getCell(i + 1, 2).value, mainSheet.getCell(i + 1, 2).value)
+                if (mainSheet.getCell(i + 1, 2).value != null) {
+                    buttons[i] = Markup.button.callback(mainSheet.getCell(i + 1, 2).value, mainSheet.getCell(i + 1, 2).value)
+                }else{
+                    buttons[i] = Markup.button.callback(mainSheet.getCell(i + 1, 0).value, mainSheet.getCell(i + 1, 0).value)
+                }
             }
 
             const keyboard = Markup.inlineKeyboard(buttons, { columns: countOfSubjects / 4 })
